@@ -38,7 +38,7 @@ class NominatimClient
     ))
 
     body = response.body
-    
+
     raise ForecastLookup::ForecastUnavailable, "Unexpected response format" unless body.is_a?(Array)
 
     body
