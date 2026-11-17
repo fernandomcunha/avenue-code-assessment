@@ -94,7 +94,7 @@ class NominatimClientTest < ActiveSupport::TestCase
     assert_equal [ 37.3228934, -122.0322895 ], coords
   end
 
-  test "center_point_for raises ForecastUnavailable on empty result" do
+  test "center_point_for raises AddressNotFound on empty result" do
     stub_request(:get, @endpoint)
       .with(query: hash_including("postalcode" => "99999"))
       .to_return(
@@ -103,7 +103,7 @@ class NominatimClientTest < ActiveSupport::TestCase
         headers: { "Content-Type" => "application/json" }
       )
 
-    assert_raises(ForecastLookup::ForecastUnavailable) do
+    assert_raises(ForecastLookup::AddressNotFound) do
       @client.center_point_for(ZipCode.parse("99999"))
     end
   end

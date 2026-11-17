@@ -19,6 +19,8 @@ class NominatimClient
 
   def center_point_for(zip_code)
     results = search(postalcode: zip_code.to_s, country: "us")
+    raise ForecastLookup::AddressNotFound, "ZIP code not found" if results.empty?
+
     result = results.first
 
     raise ForecastLookup::ForecastUnavailable, "ZIP center point not found" unless result.is_a?(Hash)
