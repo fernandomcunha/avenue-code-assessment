@@ -1,0 +1,55 @@
+<% forecast = result.forecast %>
+<% first_day = forecast.first_day %>
+
+<section class="forecast-result">
+  <div class="result-header">
+    <div>
+      <span class="zip-label">ZIP code</span>
+      <h2 class="zip-code"><%= forecast.zip_code %></h2>
+    </div>
+
+    <div class="cache-indicator <%= result.cached? ? 'is-cached' : 'is-fresh' %>">
+      <% if result.cached? %>
+        <span class="badge">From cache</span>
+        <span class="cache-detail">
+          fetched <%= cache_age_minutes(result) %> min ago, refreshes in <%= cache_refresh_minutes(result) %> min
+        </span>
+      <% else %>
+        <span class="badge">Fresh forecast</span>
+        <span class="cache-detail">Fetched just now</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="current-conditions">
+    <div class="current-temp"><%= format_temperature(forecast.current_temperature) %></div>
+    <% if first_day %>
+      <div class="today-range">
+        Today: High <strong><%= format_temperature(first_day.high) %></strong>
+        / Low <strong><%= format_temperature(first_day.low) %></strong>
+      </div>
+    <% end %>
+  </div>
+
+  <h3>7-Day Daily Outlook</h3>
+  <table class="outlook-table">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Date</th>
+        <th>High</th>
+        <th>Low</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% forecast.daily_outlook.each do |day| %>
+        <tr>
+          <td><%= day.date.strftime("%A") %></td>
+          <td><%= day.date.strftime("%b %-d") %></td>
+          <td><%= format_temperature(day.high) %></td>
+          <td><%= format_temperature(day.low) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
