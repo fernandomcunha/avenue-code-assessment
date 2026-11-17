@@ -1,0 +1,15 @@
+[
+  {
+    "lat": "37.3346438",
+    "lon": "-122.0089720",
+    "display_name": "1 Apple Park Way, Cupertino, Santa Clara County, California, 95014, United States",
+    "address": {
+      "house_number": "1",
+      "road": "Apple Park Way",
+      "city": "Cupertino",
+      "state": "California",
+      "postcode": "95014",
+      "country_code": "us"
+    }
+  }
+]
